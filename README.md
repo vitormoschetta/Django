@@ -56,21 +56,37 @@ http://127.0.0.1:8000/admin
 
 ### Cria app
 ```
-python manage.py startapp <NOME_APP>
-cd <NOME_APP>
+python manage.py startapp app
 ```
 
 
-### Cria classe no `models.py`
+### Cria modelos/classes no `models.py`
 ```
 from django.db import models
 
+# Create your models here.
+# Use Django ORM to create a model for the database
 class Player(models.Model):
-    name = models.CharField(max_length=50)
-    initial_price = models.FloatField()
+    name = models.CharField(max_length=50)    
 
     def __str__(self):
         return self.name
+
+
+class Team(models.Model):
+    name = models.CharField(max_length=50)    
+
+    def __str__(self):
+        return self.name
+
+
+class PlayerTeam(models.Model):
+    player = models.ManyToManyField(Player)
+    team = models.ManyToManyField(Team)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return [player.name for player in self.player.all()].__str__()
 ```
 
 
@@ -86,7 +102,8 @@ python manage.py migrate
 ```
 
 
-### Cria painel administrativo para novo modelo
+### Cria painel administrativo para os modelos criados
+```
 Ir no arquivo `admin.py` e adicionar o seguinte código
 ```
 from django.contrib import admin
@@ -96,5 +113,5 @@ from app.models import Player
 # Register your models here.
 admin.site.register(Player)
 ```
-Com apenas isso, já é possível acessar o painel administrativo com o CRUD completo para o modelo "Player".
+Com apenas isso, já é possível acessar o painel administrativo com o CRUD completo para o modelo "Player", "Team" e "PlayerTeam".
 
