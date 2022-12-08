@@ -2,13 +2,19 @@
 
 ### Cria virtual env
 ```
-virtualenv --python=python3.8 venv
+virtualenv --python=python3.10 venv
 ```
 
 
 ### Ativa virtual env
 ```
 source venv/bin/activate
+```
+
+
+### Instala pipenv
+```
+pip3 install pipenv
 ```
 
 
@@ -95,7 +101,6 @@ class PlayerTeam(models.Model):
 python manage.py makemigrations
 ```
 
-
 ### Aplica migrations
 ```
 python manage.py migrate
@@ -103,15 +108,24 @@ python manage.py migrate
 
 
 ### Cria painel administrativo para os modelos criados
-```
+
 Ir no arquivo `admin.py` e adicionar o seguinte código
 ```
 from django.contrib import admin
 
-from app.models import Player
+from app.models import Player, PlayerTeam, Team
 
-# Register your models here.
 admin.site.register(Player)
-```
+admin.site.register(Team)
+admin.site.register(PlayerTeam)
+``` 
+
 Com apenas isso, já é possível acessar o painel administrativo com o CRUD completo para o modelo "Player", "Team" e "PlayerTeam".
 
+
+### Traduz o painel administrativo
+
+Ir no arquivo `settings.py` e adicionar o seguinte código
+```
+LANGUAGE_CODE = 'pt-br'
+```
