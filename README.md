@@ -172,6 +172,12 @@ urlpatterns = [
 ```
 
 Acessar a página `http://localhost:8001/show_players`
+
+
+### Criar backup do banco de dados
+```s
+python manage.py dumpdata --format=json --indent=4 > db.json
+```
 <br>
 
 
