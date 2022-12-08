@@ -129,3 +129,52 @@ Ir no arquivo `settings.py` e adicionar o seguinte código
 ```
 LANGUAGE_CODE = 'pt-br'
 ```
+
+### Adicionar páginas / templates
+
+Criar um arquivo `app/urls.py` e adicionar o seguinte código
+```
+from django.urls import path
+from app.views import show_players
+
+urlpatterns = [
+    path('show_players', show_players, name='show_players'),
+]
+```
+
+Ir no arquivo `app/views.py` e adicionar o seguinte código
+```
+def show_players(request):
+    players = Player.objects.all()
+    return render(request, 'app/players.html', {'players': players})
+```
+
+Criar o arquivo `app/templates/app/players.html` e adicionar o seguinte código
+```
+<h1>Listar Jogadores</h1>
+
+<ol>
+{% for player in players %}
+<li>{{ player.name }}</li>
+{% endfor %}
+</ol>
+```
+
+Ir no arquivo `cartola_fc/urls.py` e adicionar o seguinte código
+```
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('app.urls')),
+]
+```
+
+Acessar a página `http://localhost:8001/show_players`
+<br>
+
+
+## Referências
+
+https://www.youtube.com/watch?v=NC6aUo5rxco

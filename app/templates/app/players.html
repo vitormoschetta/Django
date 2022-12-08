@@ -1,0 +1,13 @@
+<!-- Django Template Engine -->
+
+<h1>Listar Jogadores</h1>
+
+<ol>
+
+{% for player in players %}
+
+<li>{{ player.name }}</li>
+
+{% endfor %}
+
+</ol>
